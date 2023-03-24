@@ -1,0 +1,30 @@
+package:
+  id: libmysofa
+  name: libmysofa
+  version: 0.6
+  kind: lib
+  description: |
+    libmysofa.
+
+base:
+  id: org.deepin.base
+  version: 20.5.0
+
+depends:
+- id: cunit
+  version: 2.1
+
+source:
+  kind: git
+  url: https://github.com/deepin-community/libmysofa.git
+  version: uos
+  commit: 1294e1f0c7b7d11ffddcaf68925a559ae94a9d99
+  patch:
+  - dynamically-link-tools.patch
+  - drop_which.patch
+variables:
+  extra_args: |
+    -DCMAKE_LIBRARY_PATH=${TRIPLET}
+
+build:
+  kind: cmake

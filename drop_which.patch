@@ -1,0 +1,31 @@
+Description: replace 'which' with 'command -v'
+ Debian started to fade out 'which' and it is now writing a warning to stderr.
+ This in turn makes the autopkgtests fail...
+Author: IOhannes m zmölnig
+Origin: Debian
+Bug: https://github.com/hoene/libmysofa/issues/175
+Last-Update: 2021-11-16
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- libmysofa.orig/tests/compare.sh
++++ libmysofa/tests/compare.sh
+@@ -1,7 +1,7 @@
+ #!/bin/sh
+ 
+ SCRIPTDIR=${0%/*}
+-NODEJS=$(which node nodejs false | head -1)
++NODEJS=$(command -v node nodejs false | head -1)
+ 
+ ${MYSOFA2JSON:-${SCRIPTDIR}/../build/src/mysofa2json} -c -s "$1".sofa >tmp1.json 2>tmp1.txt
+ 
+--- libmysofa.orig/tests/compareIgnoreNew.sh
++++ libmysofa/tests/compareIgnoreNew.sh
+@@ -1,7 +1,7 @@
+ #!/bin/sh
+ 
+ SCRIPTDIR=${0%/*}
+-NODEJS=$(which node nodejs false | head -1)
++NODEJS=$(command -v node nodejs false | head -1)
+ 
+ ${MYSOFA2JSON:-${SCRIPTDIR}/../build/src/mysofa2json} -c -s "$1".sofa >tmp1.json 2>tmp1.txt
+ 
